@@ -1,0 +1,28 @@
+{
+    "name": "instrumentisto/composer-platform-generator",
+    "type": "composer-plugin",
+    "description": "Generate config.platform value",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Instrumentisto Team",
+            "email": "developer@instrumentisto.com"
+        }
+    ],
+    "require": {
+        "composer-plugin-api": "^1.1"
+    },
+    "require-dev": {
+        "composer/composer": "*"
+    },
+    "autoload": {
+      "psr-4": {
+        "Instrumentisto\\Composer\\": "src/"
+      }
+    },
+    "extra": {
+      "class": "Instrumentisto\\Composer\\Plugin"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
