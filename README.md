@@ -1,3 +1,4 @@
-# composer-platform-generator
-Composer plugin for generate platform requirements
+composer-platform-generator
+===========================
 
+Composer plugin for generating platform requirements.
