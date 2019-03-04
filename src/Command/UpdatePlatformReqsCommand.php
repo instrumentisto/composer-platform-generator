@@ -64,5 +64,4 @@ EOT
             $output->writeln('Updated config.platform');
         }
     }
-
 }

@@ -11,7 +11,6 @@ use Composer\Plugin\PluginInterface;
 
 class Plugin implements PluginInterface, Capable, CommandProvider
 {
-
     public function activate(Composer $composer, IOInterface $io)
     {
     }
@@ -27,5 +26,4 @@ class Plugin implements PluginInterface, Capable, CommandProvider
     {
         return [new Command\UpdatePlatformReqsCommand()];
     }
-
 }
