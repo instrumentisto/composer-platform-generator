@@ -26,7 +26,7 @@ class UpdatePlatformReqsCommand extends BaseCommand
             ->setDefinition(array(
                 new InputOption('output-console', null,
                     InputOption::VALUE_NONE, '
-                    Don\'t update composer.json, only output to console')
+                    No update composer.json, only output to console')
             ))
             ->setHelp(
                 <<<EOT
