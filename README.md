@@ -48,6 +48,13 @@ docker run --rm -v "$(pwd)":/app -w /app \
 
 
 
+## License
+
+This plugin is [MIT](LICENSE.md) licensed.
+
+
+
+
 
 [Composer]: https://getcomposer.org
 [Docker]: https://www.docker.com
