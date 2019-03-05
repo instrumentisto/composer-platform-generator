@@ -1,27 +1,25 @@
 {
-    "name": "instrumentisto/composer-platform-generator",
-    "type": "composer-plugin",
-    "description": "Generate config.platform section for composer.json",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Instrumentisto Team",
-            "email": "developer@instrumentisto.com"
-        }
-    ],
-    "require": {
-        "composer-plugin-api": "^1.1"
-    },
-    "require-dev": {
-        "composer/composer": "*"
-    },
-    "autoload": {
-      "psr-4": {
-        "Instrumentisto\\Composer\\": "src/"
-      }
-    },
-    "extra": {
-      "class": "Instrumentisto\\Composer\\Plugin"
-    },
-    "prefer-stable": true
+  "name": "instrumentisto/composer-platform-generator",
+  "type": "composer-plugin",
+  "description": "Generates config.platform section for composer.json",
+  "license": "MIT",
+  "authors": [{
+    "name": "Instrumentisto Team",
+    "email": "developer@instrumentisto.com"
+  }],
+  "require": {
+    "composer-plugin-api": "^1.1"
+  },
+  "require-dev": {
+    "composer/composer": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Instrumentisto\\Composer\\": "src/"
+    }
+  },
+  "extra": {
+    "class": "Instrumentisto\\Composer\\Plugin"
+  },
+  "prefer-stable": true
 }
