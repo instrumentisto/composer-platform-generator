@@ -2,7 +2,6 @@
 
 namespace Instrumentisto\Composer\Command;
 
-
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -14,54 +13,67 @@ use Composer\Repository\PlatformRepository;
 
 
 /**
- * Generate platform requirements
+ * Composer command that generates platform requirements in config.platform
+ * section of composer.json file.
  */
 class UpdatePlatformReqsCommand extends BaseCommand
 {
+    /**
+     * Configures the current command.
+     */
     protected function configure()
     {
         $this
             ->setName('update-platform-reqs')
-            ->setDescription('Update platform requirements in composer.json')
-            ->setDefinition(array(
+            ->setDescription('Updates config.platform requirements '.
+                             'in composer.json')
+            ->setDefinition([
                 new InputOption('output-console', null,
-                    InputOption::VALUE_NONE, '
-                    No update composer.json, only output to console')
-            ))
-            ->setHelp(
-                <<<EOT
-Generate platform requirements and build structure for config.platform options
-EOT
-            );
-
+                    InputOption::VALUE_NONE,
+                    'Do not update composer.json, but output to STDOUT'),
+            ])
+            ->setHelp('Generates requirements and build structure for '.
+                      'config.platform section of composer.json file.');
     }
 
+    /**
+     * Executes the current command by wiping the previous config.platform
+     * section (if any) and filling it with current platform environment
+     * (in alphabetic order).
+     *
+     * @param InputInterface $input    Input context of the command.
+     * @param OutputInterface $output  Output result of the command.
+     *
+     * @return int|null  null or 0 if everything went fine, or an error code.
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $content = file_get_contents(Factory::getComposerFile());
-        $manipulator = (new JsonManipulator($content));
+        $manipulator = new JsonManipulator($content);
         $manipulator->removeSubNode('config', 'platform');
 
         $extensions = [];
         foreach ((new PlatformRepository())->getPackages() as $package) {
-            $name = $package->getPrettyName();
-            if (!preg_match(PlatformRepository::PLATFORM_PACKAGE_REGEX, $name)) {
+            $n = $package->getPrettyName();
+            if (!preg_match(PlatformRepository::PLATFORM_PACKAGE_REGEX, $n)) {
                 continue;
             }
-            $extensions[strtolower($name)] = $package->getPrettyVersion();
+            $extensions[strtolower($n)] = $package->getPrettyVersion();
         }
-
         ksort($extensions);
+
         foreach ($extensions as $name => $version) {
             $manipulator->addSubNode('config', 'platform.'.$name, $version);
         }
 
         if ($input->getOption('output-console')) {
-            $output->writeln(json_encode($extensions, JSON_PRETTY_PRINT));
+            $json = json_encode($extensions, JSON_PRETTY_PRINT);
+            $output->writeln((string)$json);
         } else {
             file_put_contents(Factory::getComposerFile(),
-                                            $manipulator->getContents());
+                              $manipulator->getContents());
             $output->writeln('Updated config.platform');
         }
+        return 0;
     }
 }
