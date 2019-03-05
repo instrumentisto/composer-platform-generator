@@ -1,5 +1,6 @@
 {
   "name": "instrumentisto/composer-platform-generator",
+  "version": "0.1.0-dev",
   "type": "composer-plugin",
   "description": "Generates config.platform section for composer.json",
   "license": "MIT",
