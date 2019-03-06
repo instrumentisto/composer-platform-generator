@@ -46,7 +46,5 @@ class PlatformReqsTest extends TestCase
         $this->assertArrayHasKey('lib-pcre', self::$extension);
         $this->assertEquals(explode(' ',PCRE_VERSION)[0],
                                                 self::$extension['lib-pcre']);
-        $this->assertArrayHasKey('ext-pcre', self::$extension);
-        $this->assertEquals(phpversion('pcre'), self::$extension['ext-pcre']);
     }
 }
