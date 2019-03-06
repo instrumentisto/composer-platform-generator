@@ -2,7 +2,6 @@
 
 namespace Instrumentisto\Composer\Tests;
 
-use Composer\Factory;
 use Composer\Repository\PlatformRepository;
 
 use Instrumentisto\Composer\Command\UpdatePlatformReqsCommand;
