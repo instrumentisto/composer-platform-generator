@@ -14,15 +14,24 @@
     "composer-plugin-api": "^1.1"
   },
   "require-dev": {
-    "composer/composer": "*"
+    "composer/composer": "*",
+    "phpunit/phpunit": "^7"
   },
   "autoload": {
     "psr-4": {
       "Instrumentisto\\Composer\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Instrumentisto\\Composer\\Tests\\": "tests/"
+    }
+  },
   "extra": {
     "class": "Instrumentisto\\Composer\\Plugin"
+  },
+  "scripts": {
+    "test": "phpunit"
   },
   "prefer-stable": true
 }

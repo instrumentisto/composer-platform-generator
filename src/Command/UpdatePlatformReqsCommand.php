@@ -37,6 +37,26 @@ class UpdatePlatformReqsCommand extends BaseCommand
     }
 
     /**
+     * Get current platform requirements
+     *
+     * @param PlatformRepository $repository    PlatformRepository object
+     *
+     * @return array
+     */
+    public function getPlatformReqs(PlatformRepository $repository) {
+        $extensions = [];
+        foreach ($repository->getPackages() as $package) {
+            $n = $package->getPrettyName();
+            if (!preg_match(PlatformRepository::PLATFORM_PACKAGE_REGEX, $n)) {
+                continue;
+            }
+            $extensions[strtolower($n)] = $package->getPrettyVersion();
+        }
+        ksort($extensions);
+        return $extensions;
+    }
+
+    /**
      * Executes the current command by wiping the previous config.platform
      * section (if any) and filling it with current platform environment
      * (in alphabetic order).
@@ -52,15 +72,7 @@ class UpdatePlatformReqsCommand extends BaseCommand
         $manipulator = new JsonManipulator($content);
         $manipulator->removeSubNode('config', 'platform');
 
-        $extensions = [];
-        foreach ((new PlatformRepository())->getPackages() as $package) {
-            $n = $package->getPrettyName();
-            if (!preg_match(PlatformRepository::PLATFORM_PACKAGE_REGEX, $n)) {
-                continue;
-            }
-            $extensions[strtolower($n)] = $package->getPrettyVersion();
-        }
-        ksort($extensions);
+        $extensions = $this->getPlatformReqs(new PlatformRepository());
 
         foreach ($extensions as $name => $version) {
             $manipulator->addSubNode('config', 'platform.'.$name, $version);
