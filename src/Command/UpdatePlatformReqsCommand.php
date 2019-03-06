@@ -37,7 +37,7 @@ class UpdatePlatformReqsCommand extends BaseCommand
     }
 
     /**
-     * Get current platform requirements
+     * Get current platform requirements.
      *
      * @param PlatformRepository $repository    PlatformRepository object
      *
