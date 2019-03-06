@@ -22,19 +22,9 @@ class PlatformReqsTest extends TestCase
                                     getPlatformReqs(new PlatformRepository());
     }
 
-    public function testComposerFile() {
-        $this->assertFileExists(Factory::getComposerFile());
-    }
-
-    public function testComposerPluginApiVersion() {
-        $this->assertArrayHasKey('composer-plugin-api', self::$extension);
-        $this->assertTrue(version_compare('1.1',
-                        self::$extension['composer-plugin-api'], '<='));
-    }
-
     public function testPhpVersion() {
         $this->assertArrayHasKey('php', self::$extension);
-        $this->assertEquals(phpversion(), self::$extension['php']);
+        $this->assertEquals(PHP_VERSION, self::$extension['php']);
     }
 
     public function testJsonVersion() {
@@ -42,9 +32,18 @@ class PlatformReqsTest extends TestCase
         $this->assertEquals(phpversion('json'), self::$extension['ext-json']);
     }
 
-    public function testPcreVersion() {
+    public function testPcreLibVersion() {
         $this->assertArrayHasKey('lib-pcre', self::$extension);
         $this->assertEquals(explode(' ',PCRE_VERSION)[0],
                                                 self::$extension['lib-pcre']);
+    }
+
+    public function testPcreExtVersion() {
+        if (version_compare(PHP_VERSION, '5', '<=')) {
+            $this->assertEquals("0", self::$extension['ext-pcre']);
+        }
+        if (version_compare(PHP_VERSION, '7', '>=')) {
+            $this->assertEquals(PHP_VERSION, self::$extension['ext-pcre']);
+        }
     }
 }
