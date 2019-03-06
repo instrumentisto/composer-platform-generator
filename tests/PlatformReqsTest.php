@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: taras
- * Date: 2019-03-05
- * Time: 17:41
- */
 
 namespace Instrumentisto\Composer\Tests;
 

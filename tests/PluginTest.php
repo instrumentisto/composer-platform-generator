@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Instrumentisto\Composer\Tests;
 
 use Instrumentisto\Composer\Plugin;
