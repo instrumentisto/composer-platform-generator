@@ -25,15 +25,19 @@ class UpdatePlatformReqsCommand extends BaseCommand
     {
         $this
             ->setName('update-platform-reqs')
-            ->setDescription('Updates config.platform requirements '.
-                             'in composer.json')
+            ->setDescription(
+                'Updates config.platform requirements in composer.json'
+            )
             ->setDefinition([
                 new InputOption('output-console', null,
                     InputOption::VALUE_NONE,
-                    'Do not update composer.json, but output to STDOUT'),
+                    'Do not update composer.json, but output to STDOUT'
+                ),
             ])
-            ->setHelp('Generates requirements and build structure for '.
-                      'config.platform section of composer.json file.');
+            ->setHelp(
+                'Generates requirements and build structure for '.
+                'config.platform section of composer.json file.'
+            );
     }
 
     /**
@@ -83,8 +87,9 @@ class UpdatePlatformReqsCommand extends BaseCommand
             $json = json_encode($extensions, JSON_PRETTY_PRINT);
             $output->writeln((string)$json);
         } else {
-            file_put_contents(Factory::getComposerFile(),
-                              $manipulator->getContents());
+            file_put_contents(
+                Factory::getComposerFile(), $manipulator->getContents()
+            );
             $output->writeln('Updated config.platform');
         }
         return 0;
