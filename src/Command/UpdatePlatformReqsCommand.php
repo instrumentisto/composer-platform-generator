@@ -37,11 +37,13 @@ class UpdatePlatformReqsCommand extends BaseCommand
     }
 
     /**
-     * Get current platform requirements.
+     * Retrieves and returns platform requirements of given PHP platform.
      *
-     * @param PlatformRepository $repository    PlatformRepository object
+     * @param PlatformRepository $repository  Platform to retrieve
+     *                                        requirements of.
      *
-     * @return array
+     * @return string[]  List of platform requirements, where key is a package
+     *                   name and value is a package version.
      */
     public function getPlatformReqs(PlatformRepository $repository) {
         $extensions = [];
@@ -73,7 +75,6 @@ class UpdatePlatformReqsCommand extends BaseCommand
         $manipulator->removeSubNode('config', 'platform');
 
         $extensions = $this->getPlatformReqs(new PlatformRepository());
-
         foreach ($extensions as $name => $version) {
             $manipulator->addSubNode('config', 'platform.'.$name, $version);
         }

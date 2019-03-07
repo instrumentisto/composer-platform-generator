@@ -10,15 +10,15 @@ use PHPUnit\Framework\TestCase;
 
 
 /**
- * Contains unit tests for Command/UpdatePlatformReqsCommand class
+ * Unit tests for Command\UpdatePlatformReqsCommand class.
  */
 class PlatformReqsTest extends TestCase
 {
     private static $extension;
 
     public static function setUpBeforeClass() {
-        self::$extension = (new UpdatePlatformReqsCommand)->
-                                    getPlatformReqs(new PlatformRepository());
+        self::$extension = (new UpdatePlatformReqsCommand)
+            ->getPlatformReqs(new PlatformRepository());
     }
 
     public function testPhpVersion() {
@@ -33,8 +33,10 @@ class PlatformReqsTest extends TestCase
 
     public function testPcreLibVersion() {
         $this->assertArrayHasKey('lib-pcre', self::$extension);
-        $this->assertEquals(explode(' ',PCRE_VERSION)[0],
-                                                self::$extension['lib-pcre']);
+        $this->assertEquals(
+            explode(' ',PCRE_VERSION)[0],
+            self::$extension['lib-pcre']
+        );
     }
 
     public function testPcreExtVersion() {

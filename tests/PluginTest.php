@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 
 /**
- * Contains unit tests for Plugin class
+ * Unit tests for Plugin class.
  */
 class PluginTest extends TestCase
 {
