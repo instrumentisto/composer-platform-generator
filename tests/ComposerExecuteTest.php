@@ -60,9 +60,11 @@ class ComposerExecuteTest extends TestCase
             },
             get_loaded_extensions()
         );
-        foreach ($extensions as $ext) {
-            $this->assertContains($ext, $currentPlatformExt);
-        }
+
+        sort($currentPlatformExt);
+        array_push($extensions,'core', 'standard');
+        sort($extensions);
+        $this->assertEquals($extensions, $currentPlatformExt);
     }
 
     protected function tearDown()
