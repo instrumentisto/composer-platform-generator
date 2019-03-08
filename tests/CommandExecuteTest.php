@@ -60,6 +60,8 @@ class CommandExecuteTest extends TestCase
             function($s) { return strtolower($s); },
             get_loaded_extensions()
         );
+        fwrite(STDERR, print_r($extensions, TRUE));
+        fwrite(STDERR, print_r($currentPlatformExt, TRUE));
         foreach ($extensions as $ext) {
             $this->assertContains($ext, $currentPlatformExt);
         }
