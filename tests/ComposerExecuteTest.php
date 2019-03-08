@@ -4,7 +4,6 @@ namespace Instrumentisto\Composer\Tests;
 
 use Composer\Console;
 use Composer\Factory;
-
 use Symfony\Component\Console\Input;
 use Symfony\Component\Console\Output;
 
@@ -14,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 
 /**
- * End-to-End tests.
+ * E2E tests.
  */
 class ComposerExecuteTest extends TestCase
 {
