@@ -57,11 +57,11 @@ class CommandExecuteTest extends TestCase
         $this->assertContains('pcre',$extensions);
 
         $currentPlatformExt = array_map(
-            function($s) { return strtolower($s); },
+            function($s) {
+                return strtolower(str_replace(" ","-",$s));
+            },
             get_loaded_extensions()
         );
-        fwrite(STDERR, print_r($extensions, TRUE));
-        fwrite(STDERR, print_r($currentPlatformExt, TRUE));
         foreach ($extensions as $ext) {
             $this->assertContains($ext, $currentPlatformExt);
         }
