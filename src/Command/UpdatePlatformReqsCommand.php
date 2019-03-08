@@ -33,6 +33,10 @@ class UpdatePlatformReqsCommand extends BaseCommand
                     InputOption::VALUE_NONE,
                     'Do not update composer.json, but output to STDOUT'
                 ),
+                new InputOption('clear', null,
+                    InputOption::VALUE_NONE,
+                    'Clear config.platform requirements in composer.json'
+                ),
             ])
             ->setHelp(
                 'Generates requirements and build structure for '.
@@ -77,6 +81,14 @@ class UpdatePlatformReqsCommand extends BaseCommand
         $content = file_get_contents(Factory::getComposerFile());
         $manipulator = new JsonManipulator($content);
         $manipulator->removeSubNode('config', 'platform');
+
+        if ($input->getOption('clear')) {
+            file_put_contents(
+                Factory::getComposerFile(), $manipulator->getContents()
+            );
+            $output->writeln('Cleared config.platform');
+            return 0;
+        }
 
         $extensions = $this->getPlatformReqs(new PlatformRepository());
         foreach ($extensions as $name => $version) {
