@@ -18,10 +18,8 @@ use PHPUnit\Framework\TestCase;
  */
 class ComposerExecuteTest extends TestCase
 {
-    /** @var $app Console\Application */
     private $app;
 
-    /** @var $output Output\NullOutput */
     private $output;
 
     protected function setUp()
@@ -41,7 +39,7 @@ class ComposerExecuteTest extends TestCase
 
         $platform = json_decode($composerConfigJson,true)['config']['platform'];
         $this->assertNotEmpty($platform);
-        $this->assertGreaterThan( 2, count($platform));
+        $this->assertGreaterThan(2, count($platform));
 
         $extensions = array_reduce(
             array_keys($platform),
