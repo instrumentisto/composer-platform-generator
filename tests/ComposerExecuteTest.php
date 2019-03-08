@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * End-to-End tests.
  */
-class CommandExecuteTest extends TestCase
+class ComposerExecuteTest extends TestCase
 {
     /** @var $app Console\Application */
     private $app;
