@@ -1,7 +1,7 @@
 composer-platform-generator
 ===========================
 
-[![Version](https://img.shields.io/packagist/v/instrumentisto/composer-platform-generator.svg)](https://packagist.org/packages/psr/instrumentisto/composer-platform-generator) ![Composer Version](https://img.shields.io/badge/composer-%5E1.0-informational.svg) [![Build Status](https://travis-ci.org/instrumentisto/composer-platform-generator.svg?branch=master)](https://travis-ci.org/instrumentisto/composer-platform-generator)
+[![Version](https://img.shields.io/packagist/v/instrumentisto/composer-platform-generator.svg)](https://packagist.org/packages/instrumentisto/composer-platform-generator) ![Composer Version](https://img.shields.io/badge/composer-%5E1.0-informational.svg) [![Build Status](https://travis-ci.org/instrumentisto/composer-platform-generator.svg?branch=master)](https://travis-ci.org/instrumentisto/composer-platform-generator)
 
 [Composer] plugin for auto-generating platform requirements in `composer.json`.
 
