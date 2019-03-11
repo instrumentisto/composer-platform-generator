@@ -25,15 +25,45 @@ class UpdatePlatformReqsCommand extends BaseCommand
     {
         $this
             ->setName('update-platform-reqs')
-            ->setDescription('Updates config.platform requirements '.
-                             'in composer.json')
+            ->setDescription(
+                'Updates config.platform requirements in composer.json'
+            )
             ->setDefinition([
                 new InputOption('output-console', null,
                     InputOption::VALUE_NONE,
-                    'Do not update composer.json, but output to STDOUT'),
+                    'Do not update composer.json, but output to STDOUT'
+                ),
+                new InputOption('clear', null,
+                    InputOption::VALUE_NONE,
+                    'Clear config.platform requirements in composer.json'
+                ),
             ])
-            ->setHelp('Generates requirements and build structure for '.
-                      'config.platform section of composer.json file.');
+            ->setHelp(
+                'Generates requirements and build structure for '.
+                'config.platform section of composer.json file.'
+            );
+    }
+
+    /**
+     * Retrieves and returns platform requirements of given PHP platform.
+     *
+     * @param PlatformRepository $repository  Platform to retrieve
+     *                                        requirements of.
+     *
+     * @return string[]  List of platform requirements, where key is a package
+     *                   name and value is a package version.
+     */
+    public function getPlatformReqs(PlatformRepository $repository) {
+        $extensions = [];
+        foreach ($repository->getPackages() as $package) {
+            $n = $package->getPrettyName();
+            if (!preg_match(PlatformRepository::PLATFORM_PACKAGE_REGEX, $n)) {
+                continue;
+            }
+            $extensions[strtolower($n)] = $package->getPrettyVersion();
+        }
+        ksort($extensions);
+        return $extensions;
     }
 
     /**
@@ -52,16 +82,15 @@ class UpdatePlatformReqsCommand extends BaseCommand
         $manipulator = new JsonManipulator($content);
         $manipulator->removeSubNode('config', 'platform');
 
-        $extensions = [];
-        foreach ((new PlatformRepository())->getPackages() as $package) {
-            $n = $package->getPrettyName();
-            if (!preg_match(PlatformRepository::PLATFORM_PACKAGE_REGEX, $n)) {
-                continue;
-            }
-            $extensions[strtolower($n)] = $package->getPrettyVersion();
+        if ($input->getOption('clear')) {
+            file_put_contents(
+                Factory::getComposerFile(), $manipulator->getContents()
+            );
+            $output->writeln('Cleared config.platform');
+            return 0;
         }
-        ksort($extensions);
 
+        $extensions = $this->getPlatformReqs(new PlatformRepository());
         foreach ($extensions as $name => $version) {
             $manipulator->addSubNode('config', 'platform.'.$name, $version);
         }
@@ -70,8 +99,9 @@ class UpdatePlatformReqsCommand extends BaseCommand
             $json = json_encode($extensions, JSON_PRETTY_PRINT);
             $output->writeln((string)$json);
         } else {
-            file_put_contents(Factory::getComposerFile(),
-                              $manipulator->getContents());
+            file_put_contents(
+                Factory::getComposerFile(), $manipulator->getContents()
+            );
             $output->writeln('Updated config.platform');
         }
         return 0;
